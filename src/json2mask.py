@@ -38,8 +38,16 @@ for obj in json_objs:
   else:
    continue
 
-  mask = np.zeros_like(image)
+   #mask = np.zeros_like(image)
+  mask = np.zeros((_image.width, _image.height, 3), np.uint8) # ??
+
+  pts = np.array(points, np.int32)
 
   image = blackimage (size=h,w,3)
-  image = cv2.fillpoly(image, np.array([json_points]))
+  image = cv2.fillpoly(image, np.array([pts]))
+
+  cv2.fillPoly(mask,[pts],(255,255,255))
+    
+  cv2.imwrite(join(MASK_DIR,_json+".png"),mask)
+    
 
