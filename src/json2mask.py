@@ -35,12 +35,11 @@ for obj in json_objs:
       json_dict = data
       json_objs = json_dict["points"]
       json_points = obj['exterior']
+  else:
+   continue
 
-    else: 
-      continue
+  mask = np.zeros_like(image)
 
-    fs_array = filter_json(json_dict)
-    mask = create_polygon(fs_array)
-    imwrite(mask)
-
+  image = blackimage (size=h,w,3)
+  image = cv2.fillpoly(image, np.array([json_points]))
 
