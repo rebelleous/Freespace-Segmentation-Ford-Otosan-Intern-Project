@@ -1,53 +1,28 @@
+from cv2 import cv2
+import numpy as np
 import json
 import os
-import glob
-import numpy as np
-import cv2
+import tqdm
 
-from os import listdir
-from os.path import isfile, join
-filelist = [f for f in listdir('../data/ex_jsons') if isfile(join('../data/ex_jsons/', f))]
-
-#print(filelist) dosya adlarını yazıyor.
-JSON_DIR  = '../data/ex_jsons/'
-
-for file_name in [file for file in os.listdir(JSON_DIR) if file.endswith('.json')]:
-  with open(JSON_DIR + file_name) as json_file:
-    data = json.load(json_file)
-  
-  #print(data) JSONların içeriğini dict e çeviriyor ve yazıyor.
-
-  json_dict = data
-  json_size = json_dict["size"] # yükseklik ve genişlik ölçüsünü alma
-
-
-MASK_DIR = '../data/ex_masks'
+MASK_DIR  = '../data/ex_masks'
 if not os.path.exists(MASK_DIR):
     os.mkdir(MASK_DIR)
 
+JSON_DIR = '../data/ex_jsons'
 
-json_dict = data
-json_objs = json_dict["objects"]
+json_list = os.listdir(JSON_DIR)
 
-for obj in json_objs:
-  obj_title = obj['classTitle']
-  if obj_title == 'Freespace':
-      json_dict = data
-      json_objs = json_dict["points"]
-      json_points = obj['exterior']
-  else:
-   continue
+for json_name in tqdm.tqdm(json_list):
+    json_path = os.path.join(JSON_DIR, json_name)
+    json_file = open(json_path, 'r')
+    json_dict = json.load(json_file)
 
-   #mask = np.zeros_like(image)
-  mask = np.zeros((_image.width, _image.height, 3), np.uint8) # ??
-
-  pts = np.array(points, np.int32)
-
-  image = blackimage (size=h,w,3)
-  image = cv2.fillpoly(image, np.array([pts]))
-
-  cv2.fillPoly(mask,[pts],(255,255,255))
+    mask = np.zeros((json_dict["size"]["height"], json_dict["size"]["width"]), dtype=np.uint8)
     
-  cv2.imwrite(join(MASK_DIR,_json+".png"),mask)
+    mask_path = os.path.join(MASK_DIR, json_name[:-5])
     
-
+    for obj in json_dict["objects"]:
+        if obj['classTitle']=='Freespace':
+            mask = cv2.fillPoly(mask, np.array([obj['points']['exterior']]), color=1)
+            
+    cv2.imwrite(mask_path, mask.astype(np.uint8))
