@@ -1,7 +1,8 @@
-
 from cv2 import cv2
 import numpy as np
 import os
+import copy
+import argparse
 from sklearn.preprocessing import OneHotEncoder
 
 IMAGE_DIR  = '../data/images'
@@ -15,12 +16,20 @@ img = cv2.imread(image_file)
 cv2.imshow(f, img)
 cv2.waitKey(0)
 
-def tensorize_image(image_path, output_shape):
+
+
+def tensorize_image(image_path , output_shape):
+    for img in os.listdir('../data/images'):
+    im = Image.open(directory+img)
+    im_resized = im.resize(size, Image.ANTIALIAS)
+    im_resized.save(directory+img)
     pass
 
-
-
-
+def decode_img(img):
+  # convert the compressed string to a 3D uint8 tensor
+  img = tf.image.decode_jpeg(img, channels=3)
+  # resize the image to the desired size
+  return tf.image.resize(img, [img_height, img_width])
 
 #image_path, list of strings (paths: ["data/images/img1.png", .., "data/images/imgn.png"] corresponds to n images to be trained each step)
 #output_shape, list of integers (shape = (n1, n2): n1, n2 is width and height of the DNN model's input)
@@ -49,6 +58,4 @@ print(mask_tensor.shape)
 #The tensor should be in [batch_size, output_shape[0], output_shape[1], 2] shape.
 
 #Your model will accept the input with [batch_size, output_shape[0], output_shape[1], 3] shape and the label with [batch_size, output_shape[0], output_shape[1], 2] shape.
-
-
 
