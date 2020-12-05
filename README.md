@@ -3,10 +3,10 @@
 In this project we are aimed to detect drivable area using semantic segmentation (with python, pytorch, opencv etc. technologies).
 
 
-Json2Mask
+## Json2Mask
+
 Define directories for the folder containing json files and for mask output folder.
 
-In [13]:
 import os, tqdm, json, cv2
 import numpy as np
 
@@ -15,6 +15,7 @@ MASK_DIR  = '../data/test_masks'
 
 if not os.path.exists(MASK_DIR):
     os.mkdir(MASK_DIR)
+    
 Get json files names and sort them.
 
 In [14]:
@@ -40,7 +41,8 @@ for json_name in tqdm.tqdm(json_list):
 100%|██████████| 476/476 [00:04<00:00, 116.13it/s]
 After the json to mask step we can write mask on image for check. Also we will have more meaning images.
 
-Mask on image
+## Mask on image
+
 Define directories for the folder containing masks, images, mask_on_images folder.
 
 In [16]:
@@ -96,7 +98,11 @@ In [19]:
 # make uncomment for create images
 #write_mask_on_image()
 476it [01:39,  4.76it/s]
-Preprocess
+
+
+## Preprocess
+
+
 We should to prepare data before use on model. Model accept data as a tensor format. We need to transform images and masks to tensor.
 
 Define directories for the folder containing masks and images folder.
@@ -110,7 +116,11 @@ from PIL import Image
 
 MASK_DIR = "../data/test_masks"
 IMG_DIR = "../data/test_images"
-Image to tensor
+
+
+## Image to tensor
+
+
 This function take four parameters. First parameter image paths, it must be list. Second parameter is output shape of image. Third parameter is selection for gpu calculation. Fourth parameter is selection for augmenting (brightness, contrast and hue) images.
 This function use torchVision transform for resizing, augmenting and converting to tensor. Tensor format is [n, n_ch, w, h]
 
@@ -135,10 +145,14 @@ def tensorize_image(image_path, output_shape, cuda=False, augment=False):
     if cuda:
         tensor = tensor.cuda()
     return tensor
-Mask to tensor
+    
+    
+## Mask to tensor
+
 Firstly we need to define two functions for mask to tensor. First one is create encoded mask which is included class information.
 
-One hot encode
+## One hot encode
+
 Mask is a grayscale image, it is include two colors black (0) and white (1 or 255). In this mask black represent background and white represent freespace. This function create labels for representing classes. [0,1] label for background, [1,0] label for freespace. Function is returns np ndarray, array format is (width, height, n classes)
 
 In [ ]:
@@ -203,7 +217,8 @@ def tensorize_mask(mask_path, output_shape ,n_class, cuda=False):
         torch_mask = torch_mask.cuda()
     return torch_mask
     
-Model
+## Model
+
 I prefer U-Net model in this project because when i searching best model for semantic segmentation i saw lots of projects used U-Net model. According to my research U-Net is good on detect small objects in picture, also this model usually used on medical diseases detection.
 This is my first project on deep learning, i am learning lots of new things doing this project. That's why i preferred take a working UNet model. I tried to understand how is model and training process work.
 
