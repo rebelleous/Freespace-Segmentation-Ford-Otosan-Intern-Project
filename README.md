@@ -224,4 +224,4 @@ This is my first project on deep learning, i am learning lots of new things doin
 
 U-Net Model
 
-
+![result](https://i.hizliresim.com/vgpy47.png)
