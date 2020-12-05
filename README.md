@@ -2,6 +2,8 @@
 
 In this project we are aimed to detect drivable area using semantic segmentation (with python, pytorch, opencv etc. technologies).
 
+![result_gif](https://i.ibb.co/FYwJjZf/new-gif.gif)
+
 
 ## Json2Mask
 
@@ -225,3 +227,53 @@ This is my first project on deep learning, i am learning lots of new things doin
 U-Net Model
 
 ![result](https://i.hizliresim.com/vgpy47.png)
+
+### Data Augmentation
+
+The data in the Train data set was reproduced with augmentation at different angles and applying different contrast, brightness and hue values.
+
+    for image in tqdm.tqdm(train_input_path_list):
+	    img=Image.open(image)
+	    color_aug = T.ColorJitter(brightness=0.4, contrast=0.4, hue=0.06)
+
+	    img_aug = color_aug(img)
+	    new_path=image[:-4]+"-1"+".png"
+	    new_path=new_path.replace('image', 'augmentation')
+	    img_aug=np.array(img_aug)
+	    cv2.imwrite(new_path,img_aug)
+
+The replicated data was added to the train data set;
+
+    aug_size=int(len(aug_mask_path_list)/2)
+	train_input_path_list=aug_path_list[:aug_size]+train_input_path_list+aug_path_list[aug_size:]
+	train_label_path_list=aug_mask_path_list[:aug_size]+train_label_path_list+aug_mask_path_list[aug_size:]
+
+Epoch number changed to 25.
+A few examples of new data added after these processes are applied;
+
+![augmentation](https://i.hizliresim.com/yWCi8U.jpg)
+
+
+The model was retrained with the duplicated train data set. New loss values and graph;
+
+![new_loss](https://i.hizliresim.com/o3MpQ5.jpg)
+
+
+![new_graph](https://i.hizliresim.com/bpXW5M.jpg)
+
+
+There is a good improvement in the results obtained after data augmentation;
+
+<img src="https://i.hizliresim.com/yEyKf2.jpg" width="350">
+
+
+<img src="https://i.hizliresim.com/g6Rw4p.jpg" width="350">
+
+
+
+![new3](https://i.hizliresim.com/IVxphu.jpg)
+
+
+
+
+
