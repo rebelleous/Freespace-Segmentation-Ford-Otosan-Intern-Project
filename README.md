@@ -95,7 +95,7 @@ def write_mask_on_image():
 Call write_mask_on_image() function for check.
 
 In [19]:
-# make uncomment for create images
+make uncomment for create images
 #write_mask_on_image()
 476it [01:39,  4.76it/s]
 
