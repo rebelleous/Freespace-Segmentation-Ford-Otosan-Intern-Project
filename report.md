@@ -2,7 +2,7 @@
 
 In this project we are aimed to detect drivable area using semantic segmentation (with python, pytorch, opencv etc. technologies).
 
-![result_gif](https://i.ibb.co/FYwJjZf/new-gif.gif)
+![result_gif](https://i.hizliresim.com/Wb5lyW.jpg)
 
 
 ## Json2Mask
