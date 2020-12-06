@@ -264,14 +264,9 @@ The model was retrained with the duplicated train data set. New loss values and 
 
 There is a good improvement in the results obtained after data augmentation;
 
-<img src="https://i.hizliresim.com/yEyKf2.jpg" width="350">
 
 
-<img src="https://i.hizliresim.com/g6Rw4p.jpg" width="350">
-
-
-
-![new3](https://i.hizliresim.com/IVxphu.jpg)
+![new3](https://i.hizliresim.com/wChRGJ.jpg)
 
 
 
