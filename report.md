@@ -251,13 +251,14 @@ The replicated data was added to the train data set;
 Epoch number changed to 25.
 A few examples of new data added after these processes are applied;
 
-![augmentation](https://i.hizliresim.com/yWCi8U.jpg)
+![augmentation](https://i.hizliresim.com/gF6jNW.jpg)
 
 
 The model was retrained with the duplicated train data set. New loss values and graph;
 
 ![new_loss](https://i.hizliresim.com/o3MpQ5.jpg)
 
+![new_graph](https://i.hizliresim.com/xamDMi.jpg)
 
 ![new_graph](https://i.hizliresim.com/bpXW5M.jpg)
 
